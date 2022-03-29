@@ -1,12 +1,10 @@
 <template>
-    <div id="app">
-
-        <router-view />
+    <div class="homeBox">
+        home
     </div>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
     data() {
         return {
@@ -18,3 +16,7 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.homeBox {
+}
+</style>

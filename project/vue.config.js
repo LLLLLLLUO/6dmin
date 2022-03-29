@@ -5,10 +5,10 @@ module.exports = {
     port: 9999,
     host: 'localhost',
     https: false,
-    open: true,
+    open: false,
     proxy: {
       [process.env.VUE_APP_BASE_URL]: {
-        'target': 'http://localhost:8080',
+        'target': process.env.VUE_APP_AXIOS_URL,
         'changeOrigin': true,
         'pathRewrite': {
           ['^' + process.env.VUE_APP_BASE_URL]: ''
