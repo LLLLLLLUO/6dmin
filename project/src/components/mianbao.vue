@@ -1,21 +1,29 @@
 <template>
     <div class="lineBox">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item to="/home/welcome">
+                <span @click="toUpTitle">首页</span>
+            </el-breadcrumb-item>
             <el-breadcrumb-item>{{ title || '用户' }}管理</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 </template>
 <script>
 export default {
-    props: ['title'],
+    props: {
+        title: {
+            require: true
+        }
+    },
     data() {
         return {
-
+            home: '/home/welcome'
         }
     },
     methods: {
-
+        toUpTitle() {
+            this.$store.dispatch('selectMenu', '/home/welcome')
+        }
     }
 }
 </script>

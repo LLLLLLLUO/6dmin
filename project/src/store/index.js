@@ -9,7 +9,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: getToken() || '',
-    userInfo: getUserInfo() || ''
+    userInfo: getUserInfo() || '',
+    home: '/home/welcome'
   },
   mutations: {
     setToken: function (state, token) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     setUserInfo: function (state, userInfo) {
       console.log(userInfo)
       state.userInfo = userInfo;
+    },
+    selectMenu: function (state, path) {
+      state.home = path;
     }
   },
   actions: {
@@ -45,9 +49,11 @@ export default new Vuex.Store({
       })
     },
     setUserInfo: function ({ commit }, user) {
-      console.log(user);
       setUserInfo(user);
       commit('setUserInfo', user)
+    },
+    selectMenu: function ({ commit }, path) {
+      commit('selectMenu', path)
     }
   },
   modules: {

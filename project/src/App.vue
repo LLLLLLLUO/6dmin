@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-
         <router-view />
     </div>
 </template>
@@ -22,5 +21,13 @@ export default {
 * {
     margin: 0;
     padding: 0;
+}
+html,
+body,
+#app,
+.el-container,
+.el-aside,
+.el-main {
+    height: 100%;
 }
 </style>

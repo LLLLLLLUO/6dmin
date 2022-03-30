@@ -14,7 +14,30 @@ const routes = [
   },
   {
     path: '/home',
-    component: () => import('../views/welcome/home.vue')
+    component: () => import('../views/welcome/home.vue'),
+    redirect: '/home/welcome',
+    children: [
+      {
+        path: 'welcome',
+        component: () => import('../views/welcome/WelCome.vue')
+      },
+      {
+        path: 'vips',
+        component: () => import('../views/vips/vips.vue')
+      },
+      {
+        path: 'user',
+        component: () => import('../views/user/user.vue')
+      },
+      {
+        path: 'goods',
+        component: () => import('../views/goods/goods.vue')
+      },
+      {
+        path: 'admingoods',
+        component: () => import('../views/admingoods/admingoods.vue')
+      }
+    ]
   }
   // {
   //   path: '/about',
