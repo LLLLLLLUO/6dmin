@@ -55,7 +55,6 @@ export default {
                     this.$store.dispatch('setUserInfo', data.data);
                     this.$router.push('/home')
                 }
-                console.log(data);
             }
         }
     }
