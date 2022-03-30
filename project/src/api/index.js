@@ -1,9 +1,21 @@
 import http from '../utils';
 
-function userLogin(form) {
-  return http.post('/user/login', form)
+function userLogin(data) {
+  return http({
+    url: '/user/login',
+    method: 'post',
+    data
+  })
 };
 
+function userInfo() {
+  return http({
+    url: '/user/info',
+    method: 'get'
+  })
+}
+
 export {
-  userLogin
+  userLogin,
+  userInfo
 }

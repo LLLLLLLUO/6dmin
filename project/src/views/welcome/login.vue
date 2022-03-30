@@ -1,7 +1,13 @@
 <template>
     <div class="loginBox">
         <div class="login">
-            <el-form>
+            <h2>
+                骆骆傻逼管理系统
+            </h2>
+            <el-form
+                ref="loginForm"
+                :model="form"
+            >
                 <el-form-item>
                     <el-input
                         v-model="form.username"
@@ -28,7 +34,6 @@
 </template>
 
 <script>
-import { userLogin } from '../../api';
 export default {
     data() {
         return {
@@ -40,15 +45,17 @@ export default {
     },
     methods: {
         async toLogin() {
-            console.log(this.form)
-            let { data } = await userLogin(this.form);
-            console.log(data.message);
-            console.log(data.data.token)
-            if (data.data.token) {
-                sessionStorage.token = data.data.token;
-                this.$message.success(data.message);
-                this.$router.push('/home');
-                return false
+            let { data } = await this.$store.dispatch('userLogin', this.form);
+            console.log(data.flag);
+            if (data.flag) {
+                console.log(1)
+                let temp = await this.$store.dispatch('userInfo');
+                let { data } = temp
+                if (data.flag) {
+                    this.$store.dispatch('setUserInfo', data.data);
+                    this.$router.push('/home')
+                }
+                console.log(data);
             }
         }
     }
@@ -72,6 +79,10 @@ export default {
         transform: translate(-50%, -50%);
         border-radius: 4px;
         box-shadow: 0 0 #fff 5px;
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
         .el-form {
             width: 80%;
             margin: 30px auto 0;

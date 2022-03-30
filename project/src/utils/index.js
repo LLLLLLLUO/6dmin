@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from '../utils/auth.js';
 
 console.log(process.env.VUE_APP_BASE_URL)
 let http = axios.create({
@@ -7,7 +8,9 @@ let http = axios.create({
 });
 
 http.interceptors.request.use(config => {
-  config.headers.token = sessionStorage.token;
+  if (getToken()) {
+    config.headers.token = getToken();
+  }
   return config;
 }, error => {
   return Promise.reject(error);
