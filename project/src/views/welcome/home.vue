@@ -10,7 +10,10 @@
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>修改密码</el-dropdown-item>
                         <el-dropdown-item>
-                            <span @click="clks">退出登录</span>
+                            <template>
+                                <span @click="logout">退出登录</span>
+                            </template>
+
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -74,8 +77,9 @@ export default {
                 method: 'get'
             }))
         },
-        clks() {
+        logout() {
             console.log(1);
+            this.$store.dispatch('logout')
         },
         select(i) {
             this.$store.dispatch('selectMenu', i)

@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { userLogin } from '../api/index.js';
+import { userLogin, userInfo, logout } from '../api/index.js';
 import { setToken, getToken, getUserInfo, setUserInfo } from '../utils/auth.js';
-import { userInfo } from '../api/index.js';
 
 Vue.use(Vuex);
 
@@ -54,6 +53,17 @@ export default new Vuex.Store({
     },
     selectMenu: function ({ commit }, path) {
       commit('selectMenu', path)
+    },
+    logout: function ({ commit }) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let { data } = await logout();
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+          reject(error)
+        }
+      })
     }
   },
   modules: {

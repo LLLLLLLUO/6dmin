@@ -30,6 +30,7 @@ function getUserInfo() {
   return JSON.parse(localStorage.getItem('user'))
 };
 
+
 export {
   setToken, getToken, setUserInfo, getUserInfo
 }

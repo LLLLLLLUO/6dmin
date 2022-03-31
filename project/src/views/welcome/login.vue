@@ -2,7 +2,7 @@
     <div class="loginBox">
         <div class="login">
             <h2>
-                骆骆傻逼管理系统
+                骆骆管理傻逼梦学谷系统
             </h2>
             <el-form
                 ref="loginForm"
