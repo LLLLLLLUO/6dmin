@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { userLogin, userInfo, logout, resPass, putPass } from '../api/index.js';
 import { setToken, getToken, getUserInfo, setUserInfo, clearToken, clearUserInfo } from '../utils/auth.js';
-import { Message } from 'element-ui';
+import { getUserList, deleteUser } from '../api/member/index';
 
 Vue.use(Vuex);
 
@@ -111,6 +111,41 @@ export default new Vuex.Store({
           resolve(data);
         } catch (error) {
           console.log(error);
+          reject(error);
+        }
+      })
+    },
+    /**
+     * 查询用户列表
+     * @param {*} param0
+     * @param {*} form
+     * @returns
+     */
+    getUserList: function ({ commit }, form) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let { data } = await getUserList(form);
+          console.log(data);
+          // if (data.flag) {
+          resolve(data);
+          // }
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      })
+    },
+    /**
+     * 删除用户
+     */
+    deleteUser: function ({ commit }, id) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let { data } = await deleteUser(id);
+          // console.log(data);
+          resolve(data);
+        } catch (error) {
+          console.log(error)
           reject(error);
         }
       })
