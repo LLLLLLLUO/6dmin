@@ -46,7 +46,6 @@ export default {
     methods: {
         async toLogin() {
             let { data } = await this.$store.dispatch('userLogin', this.form);
-            console.log(data.flag);
             if (data.flag) {
                 console.log(1)
                 let temp = await this.$store.dispatch('userInfo');

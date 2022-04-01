@@ -31,10 +31,48 @@ function logout() {
     url: '/user/logout',
     method: 'post'
   })
+};
+
+/**
+ *
+ * 校验原密码
+ */
+function resPass({ userId, password }) {
+  return http({
+    url: '/user/pwd',
+    method: 'post',
+    data: {
+      userId,
+      password
+    }
+  })
+};
+/**
+ *
+ * 修改密码
+ */
+function putPass(form) {
+  console.log(form);
+  // let data = {
+  //   userId: form.userId,
+  //   password: form.newPass
+  // };
+  // console.log(data);
+  return http({
+    url: '/user/pwd',
+    method: 'PUT',
+    data: {
+      userId: form.userId,
+      password: form.newPass
+    }
+  })
 }
+
 
 export {
   userLogin,
   userInfo,
-  logout
+  logout,
+  resPass,
+  putPass
 }

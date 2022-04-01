@@ -1,6 +1,8 @@
 <template>
     <div>
-        <cmp-line title="商品" />
-        goods
+        <el-card class="box-card">
+            <cmp-line title="商品" />
+            goods
+        </el-card>
     </div>
 </template>

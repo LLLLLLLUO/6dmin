@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { userLogin, userInfo, logout } from '../api/index.js';
-import { setToken, getToken, getUserInfo, setUserInfo } from '../utils/auth.js';
+import { userLogin, userInfo, logout, resPass, putPass } from '../api/index.js';
+import { setToken, getToken, getUserInfo, setUserInfo, clearToken, clearUserInfo } from '../utils/auth.js';
+import { Message } from 'element-ui';
 
 Vue.use(Vuex);
 
@@ -9,21 +10,22 @@ export default new Vuex.Store({
   state: {
     token: getToken() || '',
     userInfo: getUserInfo() || '',
-    home: '/home/welcome'
   },
   mutations: {
     setToken: function (state, token) {
       setToken(token);
     },
     setUserInfo: function (state, userInfo) {
-      console.log(userInfo)
       state.userInfo = userInfo;
-    },
-    selectMenu: function (state, path) {
-      state.home = path;
     }
   },
   actions: {
+    /**
+     * 用户登录
+     * @param {*} param0
+     * @param {*} data
+     * @returns
+     */
     userLogin: function ({ commit }, data) {
       return new Promise(async (resolve, reject) => {
         try {
@@ -32,11 +34,16 @@ export default new Vuex.Store({
           commit('setToken', token);
           resolve(result)
         } catch (error) {
+          console.log(error);
           reject(error)
         }
-      });
-      // commit('userLogin', data)
+      })
     },
+    /**
+     * 获取用户信息
+     * @param {*} param0
+     * @returns
+     */
     userInfo: function ({ commit }) {
       return new Promise(async (resolve, reject) => {
         try {
@@ -47,21 +54,64 @@ export default new Vuex.Store({
         }
       })
     },
+    /**
+     * 存储用户信息
+     * @param {*} param0
+     * @param {*} user
+     */
     setUserInfo: function ({ commit }, user) {
       setUserInfo(user);
       commit('setUserInfo', user)
     },
-    selectMenu: function ({ commit }, path) {
-      commit('selectMenu', path)
-    },
+    /**
+     * 退出登录
+     * @param {*} param0
+     * @returns
+     */
     logout: function ({ commit }) {
       return new Promise(async (resolve, reject) => {
         try {
           let { data } = await logout();
-          console.log(data)
+          if (data.flag) {
+            clearToken();
+            clearUserInfo();
+          }
+          resolve(data)
         } catch (error) {
           console.log(error)
           reject(error)
+        }
+      })
+    },
+    /**
+     * 确认密码
+     * @param {*} param0
+     * @param {*} form
+     * @returns
+     */
+    resPass: function ({ commit }, form) {
+      console.log(form);
+      return new Promise(async (resolve, reject) => {
+        let { data } = await resPass(form)
+        if (data.flag) {
+          resolve(data);
+        }
+      })
+    },
+    /**
+     * 修改密码
+     * @param {*} param0
+     * @param {*} form
+     */
+    upPass: function ({ commit }, form) {
+      console.log(form);
+      return new Promise(async (resolve, reject) => {
+        try {
+          let { data } = await putPass(form);
+          resolve(data);
+        } catch (error) {
+          console.log(error);
+          reject(error);
         }
       })
     }
